@@ -1,0 +1,56 @@
+.product-card {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  
+  .product-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .product-description {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+  }
+  
+  .product-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4f46e5; /* Indigo */
+    margin-top: 8px;
+  }
+  
+  .product-button {
+    margin-top: 12px;
+    background-color: #4f46e5; /* Indigo */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .product-button:hover {
+    background-color: #4338ca; /* Darker Indigo */
+  }
+  
