@@ -40,6 +40,7 @@ body {
     align-items: center; /* Ensures form elements stay centered */
     justify-content: center;
     margin: auto; /* Centers it horizontally */
+    margin-top: 100px;
 }
 
   /* Heading */

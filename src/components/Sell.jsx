@@ -15,9 +15,22 @@ const Sell = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Get existing products from localStorage
+    const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
+    
+    // Add new product to the list
+    const updatedProducts = [...storedProducts, formData];
+  
+    // Save back to localStorage
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
+  
     alert("Product submitted successfully!");
-    console.log("Product Data:", formData);
+  
+    // Optional: Redirect to Products page after submission
+    window.location.href = "/products";
   };
+  
 
   return (
     <div className="container">

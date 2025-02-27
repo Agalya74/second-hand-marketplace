@@ -8,10 +8,11 @@ const ProductDetails = () => {
 
   useEffect(() => {
     const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
-    setProduct(storedProducts[id]);
+    const foundProduct = storedProducts.find((p) => p.id.toString() === id);
+    setProduct(foundProduct);
   }, [id]);
 
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <p>Product not found!</p>;
 
   return (
     <div className="product-details">

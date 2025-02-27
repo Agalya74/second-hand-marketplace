@@ -20,7 +20,7 @@ const Login = () => {
       </form>
 
       <p className="signup-text">
-        Don't have an account? <a href="/register">Sign Up</a>
+        Don't have an account? <a href="/signup">Sign Up</a>
       </p>
     </div>
   );

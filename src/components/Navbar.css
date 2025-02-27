@@ -1,26 +1,13 @@
-/* nav {
-    background-color: #15317E; 
-    padding: 10px 20px;
-  } */
-  nav {
+/* Navbar General Styles */
+nav {
     background-color: #15317E; /* Deep Blue */
     padding: 10px 20px;
-    position: fixed; /* Fixes navbar at the top */
+    position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000; /* Ensures it's above other elements */
-}
-.navbar {
-    position: fixed; /* Keeps navbar at the top */
-    width: 100%;
-    top: 0;
-    left: 0;
-    background: #15317E;
-    z-index: 1000; /* Ensures it stays above other elements */
-    padding: 15px 20px;
-}
-
+    z-index: 1000; /* Ensures navbar stays above other elements */
+  }
   
   .navbar-container {
     display: flex;
@@ -31,6 +18,7 @@
     padding: 10px 20px;
   }
   
+  /* Logo */
   .navbar-logo {
     display: flex;
     align-items: center;
@@ -44,6 +32,7 @@
     margin-left: 10px;
   }
   
+  /* Navbar Links */
   .navbar-links {
     list-style: none;
     display: flex;
@@ -60,6 +49,39 @@
     font-size: 1rem;
   }
   
+  /* Favorites & Cart Icons */
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .navbar-right a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem;
+  }
+  
+  .navbar-right a:hover {
+    color: #f0ad4e; /* Highlight on hover */
+  }
+  
+  /* Dark/Light Mode Toggle */
+  .theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .theme-toggle:hover {
+    color: #f0ad4e;
+  }
+  
+  /* Login/Logout Button */
   .navbar-login {
     display: flex;
     align-items: center;
@@ -72,18 +94,37 @@
     border-radius: 5px;
   }
   
+  .navbar-login:hover {
+    background: #e6953e;
+  }
+  
+  /* Mobile Menu Button */
   .navbar-menu {
-    display: none; /* Hide menu button for now */
+    display: none;
     background: none;
     border: none;
     color: white;
+    cursor: pointer;
   }
   
-  /* Responsive */
+  /* Mobile Menu Styling */
   @media (max-width: 768px) {
     .navbar-links {
-      display: none; /* Hide links for mobile */
+      display: none; /* Hide links initially */
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: #15317E;
+      width: 200px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 10px;
     }
+  
+    .navbar-links.open {
+      display: flex; /* Show links when menu is open */
+    }
+  
     .navbar-menu {
       display: block;
     }

@@ -1,12 +1,19 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./HomePage.css"; // Import the CSS file
+import "./HomePage.css"; 
+import cameraImage from '../assets/images/camera.jpg'
+import laptopImage from '../assets/images/laptop.jpg'
+import bicycleImage from '../assets/images/bicycle.jpg'
+import electronicsImage from '../assets/images/electronics.png'
+import clothingImage from '../assets/images/clothing.jpg'
+import booksImage from '../assets/images/books.jpg'
+import furnitureImage from '../assets/images/furniture.jpg'
 
 const HomePage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-  
+
   return (
     <main className="homepage">
       {/* Hero Section */}
@@ -21,10 +28,10 @@ const HomePage = () => {
         <h3>Categories</h3>
         <div className="category-grid">
           {[
-            { name: "📱 Electronics", img: "https://source.unsplash.com/300x200/?electronics" },
-            { name: "👕 Clothing", img: "https://source.unsplash.com/300x200/?clothing" },
-            { name: "📚 Books", img: "https://source.unsplash.com/300x200/?books" },
-            { name: "🛋️ Furniture", img: "https://source.unsplash.com/300x200/?furniture" }
+            { name: "📱 Electronics", img: electronicsImage },
+            { name: "👕 Clothing", img: clothingImage },
+            { name: "📚 Books", img: booksImage },
+            { name: "🛋️ Furniture", img: furnitureImage }
           ].map((category, index) => (
             <div key={index} className="category-card">
               <img src={category.img} alt={category.name} />
@@ -39,9 +46,9 @@ const HomePage = () => {
         <h3>Popular Items</h3>
         <div className="popular-grid">
           {[
-            { name: "📷 Camera - ₹5000", img: "https://source.unsplash.com/300x200/?camera" },
-            { name: "💻 Laptop - ₹25000", img: "https://source.unsplash.com/300x200/?laptop" },
-            { name: "🚲 Bicycle - ₹3000", img: "https://source.unsplash.com/300x200/?bicycle" }
+            { name: "📷 Camera - ₹5000", img: cameraImage  },
+            { name: "💻 Laptop - ₹25000", img: laptopImage },
+            { name: "🚲 Bicycle - ₹3000", img: bicycleImage }
           ].map((item, index) => (
             <div key={index} className="popular-card">
               <img src={item.img} alt={item.name} />
