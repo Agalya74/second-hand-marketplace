@@ -24,25 +24,23 @@ const Login = ({ setIsAuthenticated }) => {    // ✅ Added setIsAuthenticated p
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/login", {
-        email,
-        password,
-      });
+      // ✅ Correct backend URL for login
+      const response = await axios.post(
+        "https://marketplace-ipxk.onrender.com/api/users/login",
+        { email, password }
+      );
 
       console.log("🔥 Login successful:", response.data);
 
-      const { userId, token } = response.data;
-
-      // ✅ Store userId and token in localStorage
-      localStorage.setItem("userId", userId);
-      localStorage.setItem("token", token);
+      // ✅ Store token and user ID safely
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.user?._id || response.data.userId);
 
       // ✅ Set authentication state globally
       setIsAuthenticated(true);
 
-      // ✅ Redirect back to the previous page or home
-      const redirectPath = location.state?.from || "/";
-      navigate(redirectPath);
+      // ✅ Redirect to home or previous path
+      navigate("/");
 
     } catch (error) {
       console.error("❌ Error:", error.response?.data?.message || "Login failed");

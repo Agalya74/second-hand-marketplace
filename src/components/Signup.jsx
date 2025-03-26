@@ -14,32 +14,35 @@ const Signup = ({ setIsAuthenticated }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/register", {
-        name,
-        email,
-        password
-      });
+      // ✅ Use the deployed API URL
+      const response = await axios.post(
+        "https://marketplace-ipxk.onrender.com/api/users/register",
+        { name, email, password }
+      );
 
-      console.log("Signup successful:", response.data);
+      console.log("🔥 Signup successful:", response.data);
 
-      // ✅ Store the token in localStorage
+      // ✅ Store the token and user ID in localStorage
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.user?._id || response.data.userId);
 
       // ✅ Set authentication to true
       setIsAuthenticated(true);
 
-      // ✅ Redirect to the home page or dashboard
+      // ✅ Redirect to the home page
       navigate("/");
 
     } catch (error) {
-      console.error("Error:", error.response?.data?.message || "Signup failed");
+      console.error("❌ Signup Error:", error.response?.data?.message || "Signup failed");
+
+      // ✅ Display server error message or fallback message
       setError(error.response?.data?.message || "Registration failed");
     }
   };
 
   return (
     <div className="signup-container">
-      <h2 className="signup-title">Sign Up</h2>
+      <h2 className="signup-title">📝 Sign Up</h2>
       
       <form onSubmit={handleSignup}>
         <div className="form-group">
@@ -75,7 +78,7 @@ const Signup = ({ setIsAuthenticated }) => {
           />
         </div>
 
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="error-message">❌ {error}</p>}
 
         <button type="submit" className="signup-button">Sign Up</button>
       </form>
