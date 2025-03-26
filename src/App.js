@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./components/HomePage";
@@ -8,40 +9,127 @@ import Signup from "./components/Signup";
 import Sell from "./components/Sell";
 import ProductList from "./pages/ProductList";
 import ProductDetails from "./pages/ProductDetails";
+import FavoritesPage from "./pages/FavoritesPage";
+import CartPage from "./pages/CartPage";
 import "./App.css";
 
 function App() {
-  // State to track user authentication
+  // ✅ Global State
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // State for dark/light mode
+  const [userId, setUserId] = useState(null);
+  const [token, setToken] = useState(null);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
-  // Function to toggle theme
+  // ✅ Global State for Favorites & Cart
+  const [favorites, setFavorites] = useState([]);
+  const [cart, setCart] = useState([]);
+
+  // ✅ Load data from localStorage when app loads
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    const storedUserId = localStorage.getItem("userId");
+
+    if (storedToken && storedUserId) {
+      setToken(storedToken);
+      setUserId(storedUserId);
+      setIsAuthenticated(true);
+    }
+
+    // ✅ Load favorites and cart from localStorage
+    const favData = JSON.parse(localStorage.getItem("favorites")) || [];
+    const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+
+    setFavorites(favData);
+    setCart(cartData);
+  }, []);
+
+  // ✅ Store favorites & cart in localStorage on change
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [favorites, cart]);
+
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
-  // Apply theme change & persist in local storage
-  useEffect(() => {
-    document.body.classList.toggle("dark-mode", theme === "dark");
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUserId(null);
+    setToken(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("favorites");
+    localStorage.removeItem("cart");
+  };
+
+  const ProtectedRoute = ({ children }) => {
+    return isAuthenticated ? children : <Navigate to="/login" />;
+  };
 
   return (
     <Router>
       <div className={`app-container ${theme}`}>
-        {/* Pass authentication state & theme toggle function to Navbar */}
-        <Navbar isAuthenticated={isAuthenticated} toggleTheme={toggleTheme} theme={theme} />
+        <Navbar
+          isAuthenticated={isAuthenticated}
+          toggleTheme={toggleTheme}
+          onLogout={handleLogout}
+          favorites={favorites}     // ✅ Pass favorites state
+          cart={cart}               // ✅ Pass cart state
+        />
 
         <div className="content">
           <Routes>
-            <Route path="/" element={<HomePage />} /> {/* Removed toggleTheme prop */}
+            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-            <Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />} />
-            <Route path="/products" element={<ProductList />} />
-            <Route path="/products/:id" element={<ProductDetails />} />
-            <Route path="/sell" element={<Sell />} />
+            <Route path="/signup" element={<Signup />} />
+
+            <Route 
+              path="/products" 
+              element={
+                <ProductList
+                  favorites={favorites} 
+                  setFavorites={setFavorites}
+                  cart={cart} 
+                  setCart={setCart}
+                />
+              } 
+            />
+
+            <Route 
+              path="/products/:id" 
+              element={
+                <ProductDetails
+                  favorites={favorites} 
+                  setFavorites={setFavorites}
+                  cart={cart} 
+                  setCart={setCart}
+                />
+              } 
+            />
+
+            <Route 
+              path="/favorites" 
+              element={
+                <ProtectedRoute>
+                  <FavoritesPage 
+                    favorites={favorites} 
+                    setFavorites={setFavorites}
+                  />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/cart" 
+              element={
+                <ProtectedRoute>
+                  <CartPage cart={cart} setCart={setCart} />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route path="/sell" element={<ProtectedRoute><Sell /></ProtectedRoute>} />
           </Routes>
         </div>
 

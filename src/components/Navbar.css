@@ -1,132 +1,176 @@
-/* Navbar General Styles */
+/* ============================ */
+/* General Navbar Styles */
 nav {
-    background-color: #15317E; /* Deep Blue */
-    padding: 10px 20px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000; /* Ensures navbar stays above other elements */
-  }
-  
-  .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px 20px;
-  }
-  
-  /* Logo */
-  .navbar-logo {
-    display: flex;
-    align-items: center;
-    color: white;
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .navbar-logo h1 {
-    margin-left: 10px;
-  }
-  
-  /* Navbar Links */
+  background-color: #15317E; /* Deep Blue */
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensures navbar stays above other elements */
+}
+
+/* ============================ */
+/* Navbar Container */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;      /* Even padding */
+}
+
+/* ============================ */
+/* Logo */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar-logo h1 {
+  margin-left: 10px;
+}
+
+/* ============================ */
+/* Navbar Links */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 15px;                  /* Increased space between links */
+  align-items: center;
+  margin-top: 23px;
+  margin-left: 40px;          /* Space from logo */
+  padding: 0;
+}
+
+/* Center the links vertically */
+.navbar-links li {
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;        /* Added padding for perfect alignment */
+  line-height: 1.5;
+}
+
+.navbar-links a:hover {
+  color: #f0ad4e;             /* Highlight on hover */
+}
+
+/* ============================ */
+/* Favorites & Cart Icons */
+.navbar-icons {
+  display: flex;
+  gap: 30px;                   /* More spacing between icons */
+  align-items: center;
+  margin-left: auto;
+}
+
+.navbar-icons a {
+  color: white;
+  text-decoration: none;
+  transition: transform 0.3s ease, color 0.3s;
+}
+
+.navbar-icons a:hover {
+  color: #f0ad4e;              /* Highlight color on hover */
+  transform: scale(1.1);
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0ad4e; 
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  transition: 0.3s;
+}
+
+.icon-btn:hover {
+  background: #e6953e;  
+}
+
+/* ============================ */
+/* Favorites & Cart Icons in Navbar */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;                    /* Increased gap between Cart & Login */
+}
+
+/* 🛠️ Added margin to separate Login button */
+.navbar-login {
+  display: flex;
+  align-items: center;
+  gap: 8px;                      /* Spacing between icon and text */
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  background: #f0ad4e;
+  padding: 10px 18px;            /* More padding for consistency */
+  border-radius: 5px;
+  transition: 0.3s;
+  margin-left: 20px;
+  margin-right: 20px;            /* More space between Login and Cart */
+}
+
+.navbar-login:hover {
+  background: #e6953e;
+}
+
+.navbar-right a:hover {
+  color: #f0ad4e;                 /* Highlight on hover */
+}
+
+/* ============================ */
+/* Mobile Menu Button */
+.navbar-menu {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* ============================ */
+/* Mobile Menu Styling */
+@media (max-width: 768px) {
   .navbar-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
+    display: none;                 /* Hide links initially */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: #15317E;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
   }
-  
-  .navbar-links li {
-    list-style: none;
+
+  .navbar-links.open {
+    display: flex;                 /* Show links when menu is open */
   }
-  
-  .navbar-links a {
-    text-decoration: none;
-    color: white;
-    font-size: 1rem;
-  }
-  
-  /* Favorites & Cart Icons */
-  .navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .navbar-right a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 1rem;
-  }
-  
-  .navbar-right a:hover {
-    color: #f0ad4e; /* Highlight on hover */
-  }
-  
-  /* Dark/Light Mode Toggle */
-  .theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: white;
-  }
-  
-  .theme-toggle:hover {
-    color: #f0ad4e;
-  }
-  
-  /* Login/Logout Button */
-  .navbar-login {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-    color: white;
-    font-size: 1rem;
-    background: #f0ad4e;
-    padding: 8px 12px;
-    border-radius: 5px;
-  }
-  
-  .navbar-login:hover {
-    background: #e6953e;
-  }
-  
-  /* Mobile Menu Button */
+
   .navbar-menu {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
+    display: block;
   }
-  
-  /* Mobile Menu Styling */
-  @media (max-width: 768px) {
-    .navbar-links {
-      display: none; /* Hide links initially */
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      right: 0;
-      background: #15317E;
-      width: 200px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 10px;
-    }
-  
-    .navbar-links.open {
-      display: flex; /* Show links when menu is open */
-    }
-  
-    .navbar-menu {
-      display: block;
-    }
+
+  .navbar-icons {
+    display: none;                 /* Hide icons on smaller screens */
   }
-  
+}
